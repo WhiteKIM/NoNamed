@@ -1,5 +1,6 @@
 package hwagae.Nonamed.member.controller;
 
+import hwagae.Nonamed.common.model.CommonRespEntity;
 import hwagae.Nonamed.member.model.Member;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

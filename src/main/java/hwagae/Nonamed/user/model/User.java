@@ -1,13 +1,16 @@
 package hwagae.Nonamed.user.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -19,4 +22,13 @@ public class User {
     private String name;//사용자 실명
     private String phoneNumber;//사용자 전화번호
     private Boolean isIdentify;//사용자 인증여부
+
+    public User(String username, String password, String email, String nickname, String name, String phoneNumber) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.nickname = nickname;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
 }
