@@ -2,11 +2,9 @@ package hwagae.Nonamed.team.model;
 
 import hwagae.Nonamed.member.model.Member;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,6 +17,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Builder
 public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,6 +33,11 @@ public class Team {
     }
 
     @OneToMany
+    @Builder.Default
     @JoinColumn(name = "member_id")
-    private List<Member> teamMemberList;//해당팀 소속 멤버 리스트
+    private List<Member> teamMemberList = new ArrayList<>();//해당팀 소속 멤버 리스트
+
+    public void registerMember(Member member) {
+        this.teamMemberList.add(member);
+    }
 }
