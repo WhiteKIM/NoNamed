@@ -48,4 +48,28 @@ class MemberServiceImplTest {
         Assertions.assertThat(member.getTeam().getTeamName()).isEqualTo("test");
         Assertions.assertThat(testTeam.getTeamMemberList().get(0).getId()).isEqualTo(member.getId());
     }
+
+    @Test
+    void deleteTeam() {
+        Team testTeam = Team.builder()
+                .description("test")
+                .purpose("test")
+                .teamName("test")
+                .build();
+
+        User testUser = User.builder()
+                .username("test")
+                .password("test")
+                .nickname("test")
+                .build();
+
+        userRepository.save(testUser);
+        teamRepository.save(testTeam);
+        Member member = memberService.createMember(testUser, testTeam);
+
+        Assertions.assertThat(testTeam.getTeamMemberList()).contains(member);
+
+        memberService.deleteTeam(member.getId());
+        Assertions.assertThat(testTeam.getTeamMemberList()).isNotIn(member);
+    }
 }

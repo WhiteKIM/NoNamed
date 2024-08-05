@@ -9,6 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -41,6 +44,14 @@ public class MemberServiceImpl implements MemberService {
      */
     @Override
     public void deleteTeam(String id) {
-        memberRepository.deleteById(id);
+        Optional<Member> deleteMember = memberRepository.findById(id);
+
+        if(deleteMember.isEmpty())
+            throw new RuntimeException();//@TODO 추후 적절한 예외로 변경
+
+        Member member = deleteMember.get();
+        List<Member> teamMemberList = member.getTeam().getTeamMemberList();
+        teamMemberList.remove(member);//해당 멤버를 팀에서 제거한다.
+        memberRepository.deleteById(id);//팀에서 탈퇴를 완료하면 필요없는 사용자 정보는 제거
     }
 }
