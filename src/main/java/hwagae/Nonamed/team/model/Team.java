@@ -2,6 +2,7 @@ package hwagae.Nonamed.team.model;
 
 import hwagae.Nonamed.member.model.Member;
 import jakarta.persistence.*;
+import jakarta.validation.Constraint;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;//PK
+    @Column(unique = true)
     private String teamName;//팀명
     private String purpose;//팀 목적
     private String description;//팀 설명
