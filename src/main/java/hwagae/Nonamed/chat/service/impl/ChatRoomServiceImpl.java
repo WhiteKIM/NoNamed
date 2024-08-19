@@ -17,4 +17,14 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     public List<ChatRoom> findAll() {
         return chatRoomRepository.findAll();
     }
+
+    @Override
+    public ChatRoom findById(String roomId) {
+        return chatRoomRepository.findById(roomId).orElseThrow();
+    }
+
+    @Override
+    public ChatRoom createRoom(String title) {
+        return chatRoomRepository.createRoom(title);
+    }
 }
