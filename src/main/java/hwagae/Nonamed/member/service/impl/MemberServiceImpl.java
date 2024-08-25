@@ -4,6 +4,7 @@ import hwagae.Nonamed.member.model.Member;
 import hwagae.Nonamed.member.repository.MemberRepository;
 import hwagae.Nonamed.member.service.MemberService;
 import hwagae.Nonamed.team.model.Team;
+import hwagae.Nonamed.team.repository.TeamRepository;
 import hwagae.Nonamed.user.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,15 +19,18 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
+    private final TeamRepository teamRepository;
 
     /**
      * 사용자를 팀에 등록시킨다.
      * @param user - 팀에 등록할 사용자
-     * @param team - 소속될 팀
+     * @param teamId - 소속될 팀 아이디
      * @return
      */
     @Override
-    public Member createMember(User user, Team team) {
+    public Member createMember(User user, Long teamId) {
+        Team team = teamRepository.findById(teamId).orElseThrow();
+
         Member member = Member
                 .builder()
                 .user(user)

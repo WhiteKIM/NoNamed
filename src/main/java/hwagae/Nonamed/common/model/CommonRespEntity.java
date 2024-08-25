@@ -1,5 +1,7 @@
 package hwagae.Nonamed.common.model;
 
+import lombok.Data;
+
 /**
  * @ 2024.07.20
  * @ author : WhiteKIM
@@ -7,6 +9,7 @@ package hwagae.Nonamed.common.model;
  * API 공통 반환 모델
  * 기본적인 API 표준 데이터로 사용됩니다.
  */
+@Data
 public class CommonRespEntity<T>{
     private int code;//HTTP 상태코드
     private String message;//상태 메시지

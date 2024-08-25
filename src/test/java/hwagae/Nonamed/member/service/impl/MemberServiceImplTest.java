@@ -42,7 +42,7 @@ class MemberServiceImplTest {
 
         userRepository.save(testUser);
         teamRepository.save(testTeam);
-        Member member = memberService.createMember(testUser, testTeam);
+        Member member = memberService.createMember(testUser, testTeam.getId());
 
         Assertions.assertThat(member.getUser().getUsername()).isEqualTo("test");
         Assertions.assertThat(member.getTeam().getTeamName()).isEqualTo("test");
@@ -65,7 +65,7 @@ class MemberServiceImplTest {
 
         userRepository.save(testUser);
         teamRepository.save(testTeam);
-        Member member = memberService.createMember(testUser, testTeam);
+        Member member = memberService.createMember(testUser, testTeam.getId());
 
         Assertions.assertThat(testTeam.getTeamMemberList()).contains(member);
 

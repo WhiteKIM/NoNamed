@@ -11,6 +11,6 @@ import hwagae.Nonamed.user.model.User;
  * @date 2024.08.03
  */
 public interface MemberService {
-    Member createMember(User user, Team team);
+    Member createMember(User user, Long teamId);
     void deleteTeam(String id);
 }

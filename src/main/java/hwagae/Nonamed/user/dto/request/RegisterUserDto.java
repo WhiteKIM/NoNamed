@@ -24,16 +24,6 @@ public class RegisterUserDto {
     private String name;
     private String phoneNumber;
 
-
-    public RegisterUserDto(String username, String password, String nickname, String email, String name, String phoneNumber) {
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.email = email;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-    }
-
     public User toEntity() {
         return new User(username, password, email, nickname, name, phoneNumber);
     }
