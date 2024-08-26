@@ -5,3 +5,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+# 사용자 변수 설정
+jwt:
+  secret:
+    key : "mysecretKey"
+  header : "Authorization"

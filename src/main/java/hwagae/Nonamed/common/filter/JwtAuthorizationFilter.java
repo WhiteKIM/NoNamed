@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -29,6 +30,12 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
 
     private final AuthenticationManager authenticationManager;
     private final UserService userService;
+
+    @Value("${jwt.secret.key}")
+    private String key;
+
+    @Value("${jwt.header}")
+    private String header;
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
@@ -62,8 +69,8 @@ public class JwtAuthorizationFilter extends UsernamePasswordAuthenticationFilter
                 .withSubject(loginInfo.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + (1000 * 60 * 60)))
                 .withClaim("username", loginInfo.getUsername())
-                .sign(Algorithm.HMAC512("mysecretKey"));
+                .sign(Algorithm.HMAC512(key));
 
-        response.addHeader("Authorization", jwtToken);
+        response.addHeader(header, jwtToken);
     }
 }
