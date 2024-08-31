@@ -20,6 +20,9 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
+    @Enumerated(EnumType.STRING)
+    private TeamGrade grade;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -27,4 +30,5 @@ public class Member {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
+
 }

@@ -6,6 +6,7 @@ import hwagae.Nonamed.member.service.MemberService;
 import hwagae.Nonamed.team.model.Team;
 import hwagae.Nonamed.team.repository.TeamRepository;
 import hwagae.Nonamed.user.model.User;
+import hwagae.Nonamed.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,7 @@ public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
     private final TeamRepository teamRepository;
+    private final UserRepository userRepository;
 
     /**
      * 사용자를 팀에 등록시킨다.
@@ -57,5 +59,17 @@ public class MemberServiceImpl implements MemberService {
         List<Member> teamMemberList = member.getTeam().getTeamMemberList();
         teamMemberList.remove(member);//해당 멤버를 팀에서 제거한다.
         memberRepository.deleteById(id);//팀에서 탈퇴를 완료하면 필요없는 사용자 정보는 제거
+    }
+
+    @Override
+    public Optional<Member> findByUsername(String username, Long teamId) {
+        Optional<User> targetUser = userRepository.findByUsername(username);
+        Team team = teamRepository.findById(teamId).orElseThrow();
+
+        if(targetUser.isEmpty())
+            throw new RuntimeException(); //팀 멤버가 아님
+
+        User user = targetUser.get();
+        return memberRepository.findByUserAndTeam(user, team);
     }
 }

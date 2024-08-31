@@ -4,6 +4,8 @@ import hwagae.Nonamed.member.model.Member;
 import hwagae.Nonamed.team.model.Team;
 import hwagae.Nonamed.user.model.User;
 
+import java.util.Optional;
+
 /**
  * Team에 소속된 사용자 관련 기능
  * @Notice : 모든 Member는 항상 팀에 소속되어야 한다.
@@ -13,4 +15,6 @@ import hwagae.Nonamed.user.model.User;
 public interface MemberService {
     Member createMember(User user, Long teamId);
     void deleteTeam(String id);
+
+    Optional<Member> findByUsername(String username, Long teamId);
 }
